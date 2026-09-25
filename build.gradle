@@ -57,8 +57,18 @@ neoForge {
 }
 
 dependencies {
-    implementation "se.mickelus.tetra:tetra:${tetra_version}"
-    implementation "se.mickelus.mutil:mutil:${mutil_version}"
+    def localTetraJar = providers.gradleProperty("tetra_jar").orNull
+    def localMutilJar = providers.gradleProperty("mutil_jar").orNull
+    if ((localTetraJar == null) != (localMutilJar == null)) {
+        throw new GradleException("Set both -Ptetra_jar and -Pmutil_jar, or neither")
+    }
+    if (localTetraJar != null) {
+        implementation files(localTetraJar)
+        implementation files(localMutilJar)
+    } else {
+        implementation "se.mickelus.tetra:tetra:${tetra_version}"
+        implementation "se.mickelus.mutil:mutil:${mutil_version}"
+    }
     implementation "maven.modrinth:5sy6g3kz:${better_combat_version}"
 }
 
