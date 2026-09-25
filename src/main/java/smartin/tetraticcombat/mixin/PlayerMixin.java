@@ -28,9 +28,9 @@ public class PlayerMixin {
         if(!ForgeConfigHolder.COMMON.playerMixin.get()) return;
         Player p = (Player)(Object) this;
         ItemStack handStack = playerItemStackMap.get(p);
-        if(handStack==null || (p.getMainHandItem() != null && !p.getMainHandItem().equals(handStack,false))){
+        if(handStack==null || !ItemStack.matches(p.getMainHandItem(), handStack)){
             Resolver.generateBetterCombatNBT(p.getMainHandItem(),false);
-            playerItemStackMap.put(p,p.getMainHandItem());
+            playerItemStackMap.put(p,p.getMainHandItem().copy());
         }
     }
 }

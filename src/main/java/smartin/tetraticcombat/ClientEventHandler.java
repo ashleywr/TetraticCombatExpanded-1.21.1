@@ -3,22 +3,17 @@ package smartin.tetraticcombat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.bus.api.EventPriority;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import se.mickelus.tetra.effect.EffectHelper;
 import se.mickelus.tetra.effect.ItemEffect;
 import se.mickelus.tetra.effect.SweepingEffect;
 import se.mickelus.tetra.effect.howling.HowlingEffect;
 import se.mickelus.tetra.items.modular.ItemModularHandheld;
 
-@Mod.EventBusSubscriber(
-        modid = "tetratic",
-        bus = Mod.EventBusSubscriber.Bus.MOD
-)
 public class ClientEventHandler {
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent(priority = EventPriority.LOWEST )
@@ -27,7 +22,6 @@ public class ClientEventHandler {
         Minecraft mc = Minecraft.getInstance();
         assert mc.player != null;
         ItemStack itemStack = mc.player.getMainHandItem();
-        if(event.isCanceled()) return;
         if (itemStack.getItem() instanceof ItemModularHandheld && mc.hitResult != null && HitResult.Type.MISS.equals(mc.hitResult.getType())) {
             if (getEffectLevel(itemStack, ItemEffect.truesweep) > 0) {
                 SweepingEffect.triggerTruesweep();

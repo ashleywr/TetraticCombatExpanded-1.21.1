@@ -15,11 +15,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Iterator;
 
-public class ReloadListener extends SimplePreparableReloadListener {
+public class ReloadListener extends SimplePreparableReloadListener<JSONFormat> {
     private static final Logger LOGGER = LogManager.getLogger();
 
     @Override
-    protected Object prepare(ResourceManager resourceManager, ProfilerFiller profilerFiller) {
+    protected JSONFormat prepare(ResourceManager resourceManager, ProfilerFiller profilerFiller) {
         String dataFolder = "configs";
         Iterator<ResourceLocation> iterator = resourceManager.listResources(dataFolder, (fileName) -> fileName.toString().endsWith(".json")).keySet().iterator();
         JSONFormat mergedConfig = new JSONFormat();
@@ -60,7 +60,7 @@ public class ReloadListener extends SimplePreparableReloadListener {
     }
 
     @Override
-    protected void apply(Object mergedConfig, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
-        Resolver.reload((JSONFormat) mergedConfig);
+    protected void apply(JSONFormat mergedConfig, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
+        Resolver.reload(mergedConfig);
     }
 }

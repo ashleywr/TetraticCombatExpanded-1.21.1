@@ -1,14 +1,13 @@
 package smartin.tetraticcombat;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.AddReloadListenerEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.loading.FMLEnvironment;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.loading.FMLEnvironment;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import smartin.tetraticcombat.ItemResolver.ReloadListener;
@@ -23,17 +22,16 @@ public class TetraticCombat {
 
     public static String MODID = "tetratic_combat_expanded";
 
-    public TetraticCombat() {
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ForgeConfigHolder.COMMON_SPEC);
+    public TetraticCombat(ModContainer modContainer) {
+        modContainer.registerConfig(ModConfig.Type.COMMON, ForgeConfigHolder.COMMON_SPEC);
         if(FMLEnvironment.dist==Dist.CLIENT){
             clientSetup();
         }
-        MinecraftForge.EVENT_BUS.register(this);
+        NeoForge.EVENT_BUS.register(this);
     }
 
-    @OnlyIn(Dist.CLIENT)
     private void clientSetup(){
-        MinecraftForge.EVENT_BUS.register(ClientEventHandler.class);
+        NeoForge.EVENT_BUS.register(ClientEventHandler.class);
     }
 
     @SubscribeEvent

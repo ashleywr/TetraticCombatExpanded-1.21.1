@@ -4,6 +4,7 @@ import net.minecraft.world.item.ItemStack;
 import se.mickelus.tetra.items.modular.ModularItem;
 import se.mickelus.tetra.module.ItemModuleMajor;
 import se.mickelus.tetra.module.data.ImprovementData;
+import se.mickelus.tetra.util.ItemStackTagHelper;
 
 import javax.annotation.Nullable;
 
@@ -26,9 +27,9 @@ public class Condition {
         }
         switch (type){
             case "module":
-                assert itemStack.getTag() != null;
                 assert key != null;
-                if(itemStack.getTag().getString(key).equals(value)){
+                var tag = ItemStackTagHelper.getTag(itemStack);
+                if(tag != null && tag.getString(key).equals(value)){
                     return getChildifPossible(itemStack);
                 }
                 break;

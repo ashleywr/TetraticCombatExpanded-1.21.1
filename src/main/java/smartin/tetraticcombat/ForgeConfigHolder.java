@@ -1,6 +1,6 @@
 package smartin.tetraticcombat;
 
-import net.minecraftforge.common.ForgeConfigSpec;
+import net.neoforged.neoforge.common.ModConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
 
@@ -8,15 +8,15 @@ public class ForgeConfigHolder {
     private ForgeConfigHolder(){}
     public static class Common
     {
-        public final ForgeConfigSpec.ConfigValue<Boolean> enableRescale;
-        public final ForgeConfigSpec.ConfigValue<Boolean> enableTetraRange;
-        public final ForgeConfigSpec.ConfigValue<Boolean> reachFallBack;
-        public final ForgeConfigSpec.ConfigValue<Boolean> quickReducesUpswing;
-        public final ForgeConfigSpec.ConfigValue<Boolean> playerMixin;
-        public final ForgeConfigSpec.ConfigValue<Boolean> altEvent;
-        public final ForgeConfigSpec.ConfigValue<Boolean> verboseLogs;
+        public final ModConfigSpec.ConfigValue<Boolean> enableRescale;
+        public final ModConfigSpec.ConfigValue<Boolean> enableTetraRange;
+        public final ModConfigSpec.ConfigValue<Boolean> reachFallBack;
+        public final ModConfigSpec.ConfigValue<Boolean> quickReducesUpswing;
+        public final ModConfigSpec.ConfigValue<Boolean> playerMixin;
+        public final ModConfigSpec.ConfigValue<Boolean> altEvent;
+        public final ModConfigSpec.ConfigValue<Boolean> verboseLogs;
 
-        public Common(ForgeConfigSpec.Builder builder)
+        public Common(ModConfigSpec.Builder builder)
         {
             builder.push("rendering");
             this.enableRescale = builder.comment("Enable Tetratic Rescaling for Items in the players Hand.")
@@ -40,11 +40,11 @@ public class ForgeConfigHolder {
     }
 
     public static final Common COMMON;
-    public static final ForgeConfigSpec COMMON_SPEC;
+    public static final ModConfigSpec COMMON_SPEC;
 
     static //constructor
     {
-        Pair<Common, ForgeConfigSpec> commonSpecPair = new ForgeConfigSpec.Builder().configure(Common::new);
+        Pair<Common, ModConfigSpec> commonSpecPair = new ModConfigSpec.Builder().configure(Common::new);
         COMMON = commonSpecPair.getLeft();
         COMMON_SPEC = commonSpecPair.getRight();
     }
